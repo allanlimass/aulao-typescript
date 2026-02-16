@@ -216,7 +216,7 @@ git push origin feature/melhoria
 
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?logo=linkedin&logoColor=white&style=flat-square)](https://linkedin.com/in/allansilva)
 [![GitHub](https://img.shields.io/badge/-GitHub-333?logo=github&logoColor=white&style=flat-square)](https://github.com/allanlimass)
-[![Email](https://img.shields.io/badge/-Email-EA4335?logo=gmail&logoColor=white&style=flat-square)](mailto:allanlimass@hotmail.com)
+[![Email](https://img.shields.io/badge/-Email-0078D4?logo=microsoft-outlook&logoColor=white&style=flat-square)](mailto:allanlimass@hotmail.com)
 
 _Desenvolvedor Full Stack | TypeScript Enthusiast | Open Source Contributor_
 
@@ -225,8 +225,6 @@ _Desenvolvedor Full Stack | TypeScript Enthusiast | Open Source Contributor_
 ---
 
 <div align="center">
-
-### **Desenvolvido com ❤️ para demonstrar paixão por código de qualidade**
 
 Feito com 🖤 usando TypeScript, Node.js e pnpm
 
