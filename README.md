@@ -1,99 +1,233 @@
-# Tipagem Dinâmica & Tipagem Estática
+# 📘 TypeScript Deep Dive
 
-## Tipagem Dinâmica:
+> Um projeto de aprendizado estruturado sobre TypeScript, explorando conceitos fundamentais a intermediários da linguagem com exemplos práticos e aplicáveis.
 
-- O tipo de uma variável é associado com o seu valor e não é explicitamente declarado
-- O tipo de uma variável pode ser alterado livremente durante a execução do código
-- Exemplo de uma linguagem com Tipagem Dinâmica (JavaScript, Python, Ruby, PHP):
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-20.20.0-339933?logo=node.js)](https://nodejs.org/)
+[![pnpm](https://img.shields.io/badge/pnpm-Package%20Manager-F69220?logo=pnpm)](https://pnpm.io/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-  ```js
-  let age;
+## 🎯 Objetivo
 
-  age = 21;
-  typeof age; // number
+Consolidar conhecimento sólido em **TypeScript**, desde conceitos básicos até padrões avançados. Este repositório documenta minha jornada de aprendizado com exemplos práticos que refletem situações reais de desenvolvimento profissional.
 
-  age = "21";
-  typeof age; // string
-  ```
+## 🚀 Quick Start
 
-## Tipagem Estática
+### Pré-requisitos
 
-- O tipo de uma variável é explicitamente declarado
-- O tipo de uma variável não pode ser alterado durante a execução do código
-- Os valores assinalados à uma variável precisam respeitar o seu tipo previamente definido
+- Node.js v16+ (recomendado v20.20.0)
+- pnpm (ou npm)
+- NVM (opcional, para gerenciar versões do Node)
 
-  ```typescript
-  let age: number;
+### Instalação
 
-  age = 21;
-  typeof age; // number
+```bash
+# Clone o repositório
+git clone https://github.com/allanlimass/aulao-typescript.git
+cd aulao-typescript
 
-  age = "21"; // Error: age must be of type number
-  ```
+# Use Node.js v20 (com NVM)
+nvm use 20
 
-# Linguagens Estáticas & Compiladores
+# Instale as dependências
+pnpm install
+```
 
-- Linguagens estáticas possuem compiladores, que verificam as variáveis presentes no código, seus tipos e seus valores (e apontam eventuais erros)
-- O compiladores de cada linguagem possui suas próprias características
-  - O TypeScript utiliza o TypeScript Compiler
+### Compilação & Execução
 
-# O que é TypeScript?
+```bash
+# Compilar TypeScript para JavaScript
+pnpm exec tsc src/index.ts
 
-- É uma linguagem desenvolvida com base no JavaScript
-- Adiciona novas funcionalidades e Tipagem Estática ao JavaScript
-- Todo código TypeScript é convertido para o seu equivalente em JS pelo TypeScript Compiler
-  - Portanto, podemos usá-lo tanto no back-end quanto no front-end
-  - E por que isso acontece? Porque os navegadores não entendem TypeScript
+# Executar o arquivo compilado
+node dist/index.js
 
-# Por que usar o TypeScript?
+# Modo watch (recompila automaticamente)
+pnpm exec tsc --watch
+```
 
-- Como é uma linguagem com Tipagem Estática, ele previne situações como:
+## 📚 Conceitos Abordados
 
-  ```js
-  const sum = (num1, num2) => {
-    return num1 + num2;
-  };
+### 1️⃣ Diferença entre Tipagem Dinâmica e Estática
 
-  sum("2", "3"); // 23 (não queremos isso!)
-  ```
+**Tipagem Dinâmica (JavaScript)**
 
-  ```ts
-  const sum = (num1: number, num2: number) => {
-    return num1 + num2;
-  };
+```js
+let age = 21;
+typeof age; // "number"
 
-  sum("2", "3"); // Error
-  ```
+age = "21"; // ✅ Funciona, mas não é o ideal
+typeof age; // "string"
+```
 
-- Podemos utilizar funcionalidades modernas do JavaScript (import/export) e o TypeScript Compiler as compilará para um código que funcione em navegadores mais antigos
+**Tipagem Estática (TypeScript)**
 
-  ```ts
-  import uuid from "uuid";
+```ts
+let age: number = 21;
+typeof age; // "number"
 
-  const generateUser = () => {
-    return { id: uuid() };
-  };
-  ```
+age = "21"; // ❌ ERROR: Type 'string' is not assignable to type 'number'
+```
 
-  ```js
-  const uuid = require("uuid");
+### 2️⃣ Tipos Básicos
 
-  function generateUser() {
-    return {
-      id: uuid(),
-    };
-  }
-  ```
+- ✅ `number`, `string`, `boolean`
+- ✅ `any` - Use com cuidado!
+- ✅ Arrays tipados (`number[]`, `string[]`)
+- ✅ Tipos explícitos e implícitos
 
-# Visão Geral das Vantagens e Desvantagens
+### 3️⃣ Tipos Complexos
 
-- **Vantagens:**
-  - Recursos avançados do JS
-  - Prevenção de erros de tipagem
-  - Mais fácil de identificar bugs
-  - Código mais legível
-  - Extremamente popular
-- **Desvantagens:**
-  - Escrevemos mais código
-  - Há uma curva de aprendizado
-  - Requer compilação para JavaScript
+- ✅ **Tuplas** - Arrays heterogêneos com tipos fixos por posição
+- ✅ **Type Unions** - Múltiplos tipos possíveis (`string | number`)
+- ✅ **Enums** - Conjuntos nomeados de constantes
+
+### 4️⃣ Type Assertions (Conversão de Tipos)
+
+```ts
+const productName: any = "Boné";
+
+// Type Assertion com 'as'
+const itemId = productName as string;
+
+// Type Assertion com <> syntax
+const itemId = <string>productName;
+```
+
+## 💡 Por que TypeScript?
+
+### Problema em JavaScript
+
+```js
+const sum = (num1, num2) => {
+  return num1 + num2;
+};
+
+sum("2", "3"); // "23" 😞 Não é o que esperávamos!
+```
+
+### Solução em TypeScript
+
+```ts
+const sum = (num1: number, num2: number): number => {
+  return num1 + num2;
+};
+
+sum("2", "3"); // ❌ ERROR: Argument of type 'string' is not assignable to parameter of type 'number'
+sum(2, 3); // ✅ 5
+```
+
+## 📁 Estrutura do Projeto
+
+```
+aulao-typescript/
+├── src/
+│   └── index.ts                    # Exemplos práticos de conceitos
+├── dist/                           # Arquivos compilados (.js)
+├── package.json                    # Dependências e scripts
+├── tsconfig.json                   # Configuração do TypeScript
+├── pnpm-lock.yaml                  # Lock file do pnpm
+└── README.md                       # Este arquivo
+```
+
+## 🛠️ Stack Tecnológico
+
+| Tecnologia     | Versão  | Propósito                                   |
+| -------------- | ------- | ------------------------------------------- |
+| **TypeScript** | ^5.9.3  | Tipagem estática                            |
+| **Node.js**    | 20.20.0 | Runtime JavaScript                          |
+| **pnpm**       | 10.29.3 | Gerenciador de pacotes (rápido e eficiente) |
+
+## 📊 Progresso de Aprendizado
+
+- [x] Tipos primitivos (`number`, `string`, `boolean`)
+- [x] Arrays e coleções
+- [x] Tuplas
+- [x] Type unions (`|`)
+- [x] Enums
+- [x] Type assertions
+- [x] Interfaces
+- [x] Classes e Herança
+- [x] Generics
+
+## 🎓 Exemplos Práticos
+
+### Trabalhando com Enums
+
+```typescript
+enum Direction {
+  Up = 1,
+  Down = 2,
+  Left = 3,
+  Right = 4,
+}
+
+const direction = Direction.Up; // 1
+```
+
+### Tuplas - Estruturas Heterogêneas
+
+```typescript
+const person: [number, string] = [1, "Maria"];
+const people: [number, string][] = [
+  [1, "Jane"],
+  [2, "Doe"],
+];
+```
+
+### Type Unions - Flexibilidade Segura
+
+```typescript
+const productId: string | number = "PROD-001";
+// productId = 123; também é válido
+```
+
+## ✨ Principais Aprendizados
+
+1. **Type Safety** - TypeScript detecta erros em tempo de compilação, não em runtime
+2. **Inferência de Tipos** - O compilador é inteligente o suficiente para deduzir tipos automaticamente
+3. **Código Legível** - Tipos servem como documentação viva do seu código
+4. **Debugging Facilitado** - Menos erros = menos tempo depurando
+5. **Manutenibilidade** - Refatorações são mais seguras com tipagem estática
+
+## 🔗 Recursos Úteis
+
+- 📖 [Documentação Oficial TypeScript](https://www.typescriptlang.org/docs/)
+- 📚 [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/)
+- 🎮 [TypeScript Playground](https://www.typescriptplay.dev/)
+- 🎬 [TypeScript para Iniciantes](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
+
+## 🤝 Contribuições
+
+Este é um projeto educacional pessoal. Sugestões e melhorias são bem-vindas!
+
+```bash
+git clone https://github.com/allanlimass/aulao-typescript.git
+git checkout -b feature/melhoria
+git commit -m "Add: Novo conceito abordado"
+git push origin feature/melhoria
+```
+
+## 📧 Contato & Redes
+
+<div align="center">
+
+**Allan Silva**
+
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?logo=linkedin&logoColor=white&style=flat-square)](https://linkedin.com/in/allansilva)
+[![GitHub](https://img.shields.io/badge/-GitHub-333?logo=github&logoColor=white&style=flat-square)](https://github.com/allanlimass)
+[![Email](https://img.shields.io/badge/-Email-EA4335?logo=gmail&logoColor=white&style=flat-square)](mailto:allanlimass@hotmail.com)
+
+_Desenvolvedor Full Stack | TypeScript Enthusiast | Open Source Contributor_
+
+</div>
+
+---
+
+<div align="center">
+
+### **Desenvolvido com ❤️ para demonstrar paixão por código de qualidade**
+
+Feito com 🖤 usando TypeScript, Node.js e pnpm
+
+</div>
